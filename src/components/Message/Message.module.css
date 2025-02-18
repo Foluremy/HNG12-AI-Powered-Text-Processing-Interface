@@ -1,0 +1,70 @@
+.message {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #e3f2fd;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .message p {
+    margin: 0 0 10px 0;
+  }
+  
+  .message p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .actionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .actionButtons button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .actionButtons button:hover {
+    background-color: #0056b3;
+  }
+  
+  .actionButtons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .actionButtons select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .actionButtons select:focus,
+  .actionButtons button:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .actionButtons {
+      flex-direction: column;
+    }
+  
+    .actionButtons button,
+    .actionButtons select {
+      width: 100%;
+    }
+  }
