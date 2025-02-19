@@ -11,18 +11,26 @@ export default function Message({ text }) {
   const [isTranslating, setIsTranslating] = useState(false);
   const [error, setError] = useState('');
 
-  // Detect language on component mount
+  // Detect language on input
   useEffect(() => {
-    detectLanguage(text)
-      .then((langCode) => {
-        setDetectedLanguage(`Detected: ${langCode}`);
-      })
-      .catch((error) => {
-        console.error('Language detection failed:', error);
+    const detectLanguageOnInput = async () => {
+      if (!text.trim()) {
+        setDetectedLanguage('not sure what language this is');
+        return;
+      }
+
+      try {
+        const { detectedLanguage } = await detectLanguage(text);
+        setDetectedLanguage(detectedLanguage);
+      } catch (error) {
         setDetectedLanguage('Language detection failed.');
-      });
+      }
+    };
+
+    detectLanguageOnInput();
   }, [text]);
 
+  // Handle Summarize
   const handleSummarize = async () => {
     setIsSummarizing(true);
     try {
@@ -41,6 +49,7 @@ export default function Message({ text }) {
     try {
       const translatedText = await translateText(text, targetLanguage);
       setTranslation(translatedText);
+      setError('');
     } catch (error) {
       setError('Translation failed. Please try again.');
     }
@@ -50,7 +59,8 @@ export default function Message({ text }) {
   return (
     <div className={styles.message} role="article">
       <p>{text}</p>
-      <p>{detectedLanguage}</p>
+      {error && <p className="error">{error}</p>}
+      <p className='detect-lang'>Detected: {detectedLanguage}</p>
       <div className={styles.actionButtons}>
         {/* Summarize Button (only show if text is English and > 150 words) */}
         {detectedLanguage.includes('en') && text.split(' ').length > 150 ? (
@@ -91,7 +101,6 @@ export default function Message({ text }) {
           {isTranslating ? 'Translating...' : 'Translate'}
         </button>
 
-        {error && <p className={styles.error}>{error}</p>}
         {summary && <p>Summary: {summary}</p>}
         {translation && <p>Translation: {translation}</p>}
       </div>

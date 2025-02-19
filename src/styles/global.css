@@ -21,11 +21,25 @@
     padding: 20px;
     background-color: #fff;
   }
+
+  /* Heading */
+  .heading {
+    font-weight: bold;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .heading:hover {
+    border: 1px solid darkgray;
+    border-radius: 15px;
+    width: fit-content;
+    padding: 10px;
+  }
   
   /* Output area (messages) */
   .output-area {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -88,6 +102,22 @@
   button:focus {
     outline: 2px solid #007bff;
     outline-offset: 2px;
+  }
+
+  /* Global error styles */
+  .error {
+    color: #dc3545; /* Red color for errors */
+    font-size: 14px;
+    width: fit-content;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #dc3545;
+    border-radius: 4px;
+    background-color: #f8d7da; /* Light red background */
+  }
+  
+  .error:empty {
+    display: none; /* Hide if no error message */
   }
   
   /* Responsive design */
