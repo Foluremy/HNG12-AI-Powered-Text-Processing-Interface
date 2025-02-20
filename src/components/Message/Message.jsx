@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { detectLanguage } from '../../services/languageDetector';
+import { translateText } from '../../services/translator';
+import { summarizeText } from '../../services/summarizer';
 import styles from './Message.module.css';
 
 export default function Message({ text }) {
@@ -33,8 +35,13 @@ export default function Message({ text }) {
   // Handle Summarize
   const handleSummarize = async () => {
     setIsSummarizing(true);
+    setError('');
     try {
-      const summary = await summarizeText(text);
+      const summary = await summarizeText(text, {
+        type: 'key-points', 
+        format: 'markdown', 
+        length: 'medium', 
+      });
       setSummary(summary);
     } catch (error) {
       setError('Summarization failed. Please try again.');
@@ -47,7 +54,7 @@ export default function Message({ text }) {
     setIsTranslating(true);
     setError('');
     try {
-      const translatedText = await translateText(text, targetLanguage);
+      const translatedText = await translateText(text, detectedLanguage, targetLanguage); 
       setTranslation(translatedText);
       setError('');
     } catch (error) {
@@ -60,6 +67,7 @@ export default function Message({ text }) {
     <div className={styles.message} role="article">
       <p>{text}</p>
       {error && <p className="error">{error}</p>}
+      <hr></hr>
       <p className='detect-lang'>Detected: {detectedLanguage}</p>
       <div className={styles.actionButtons}>
         {/* Summarize Button (only show if text is English and > 150 words) */}
@@ -73,12 +81,7 @@ export default function Message({ text }) {
           </button>
         ) : (
           <>
-            {!detectedLanguage.includes('en') && (
-              <p>Summarize is only available for English text.</p>
-            )}
-            {detectedLanguage.includes('en') && text.split(' ').length <= 150 && (
-              <p>Summarize is only available for text longer than 150 words.</p>
-            )}
+           
           </>
         )}
         <select
@@ -100,7 +103,7 @@ export default function Message({ text }) {
         >
           {isTranslating ? 'Translating...' : 'Translate'}
         </button>
-
+        <hr></hr>
         {summary && <p>Summary: {summary}</p>}
         {translation && <p>Translation: {translation}</p>}
       </div>

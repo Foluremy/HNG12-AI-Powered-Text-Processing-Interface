@@ -1,10 +1,10 @@
 .message {
     padding: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border-radius: 8px;
-    background-color: #e3f2fd;
-    color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    box-shadow: 0 2px 4px rgba(204, 174, 174, 0.479);
   }
   
   .message p {
@@ -16,14 +16,20 @@
   }
 
   .detect-lang {
-    color: #dc3545; /* Red color for errors */
     font-size: 12px;
     width: fit-content;
     margin-top: 10px;
     padding: 10px;
     border: 1px solid #dc3545;
     border-radius: 4px;
-    background-color: #f8d7da; /* Light red background */
+    color: var(--error-color);
+    background-color: var(--error-background);
+    border-color: var(--error-color);
+  }
+
+  .message hr {
+    opacity: 20%;
+
   }
   
   .actionButtons {
@@ -36,8 +42,8 @@
   .actionButtons button {
     padding: 8px 16px;
     font-size: 14px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;

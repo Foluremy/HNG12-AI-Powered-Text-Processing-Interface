@@ -34,12 +34,6 @@ export const detectLanguage = async (text) => {
     throw new Error('Detector object is invalid or missing detect method.');
   }
 
-  // Handle empty input
-  if (!text.trim()) {
-    console.log('Input text is empty.');
-    return { detectedLanguage: 'unknown', confidence: 0 };
-  }
-
   // Detect the language
   console.log('Detecting language...');
   const [{ detectedLanguage }] = await detector.detect(text.trim());

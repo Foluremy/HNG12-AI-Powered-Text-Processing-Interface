@@ -19,11 +19,20 @@ export default function InputArea({ onSend }) {
     setError('');
   };
 
+  // Handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent default behavior (e.g., new line)
+      handleSubmit(e); // Trigger form submission
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className={styles.inputForm}>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={handleKeyDown} 
         placeholder="Type or paste text here..."
         aria-label="Text input"
         required // Ensure the textarea is not empty
